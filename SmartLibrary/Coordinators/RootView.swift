@@ -6,3 +6,20 @@
 //
 
 import Foundation
+import SwiftUI
+
+struct RootView: View {
+    @EnvironmentObject var appState: AppState
+    
+    var body: some View {
+        switch appState.selectedModule {
+        case .none:
+            LaunchView()
+        case .bookTracker:
+            BookTrackerCoordinator()
+        case .recipeBook:
+            RecipeBookCoordinator()
+        }
+    }
+}
+

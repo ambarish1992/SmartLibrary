@@ -7,12 +7,30 @@
 
 import SwiftUI
 
-struct BookSettingsView: View {
+struct RecipeSettingsView: View {
+    @EnvironmentObject var appState: AppState
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack {
+            Form {
+                Section(header: Text("Preferences")) {
+                    Toggle("Meal Notifications", isOn: .constant(true))
+                }
+                
+                Section {
+                    Button(role: .destructive) {
+                        appState.selectedModule = .none
+                    } label: {
+                        Label("Switch to Home", systemImage: "arrow.uturn.backward")
+                    }
+                }
+            }
+            .navigationTitle("Settings")
+        }
     }
 }
 
 #Preview {
-    SettingsView()
+
+    RecipeSettingsView()
 }

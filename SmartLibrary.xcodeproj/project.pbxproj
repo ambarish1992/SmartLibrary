@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		337CCD6A2E1BA198002E6E8A /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 337CCD692E1BA198002E6E8A /* SwiftSoup */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		331107282E15000B000B757E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -29,14 +33,48 @@
 		331107312E15000B000B757E /* SmartLibraryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmartLibraryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		331107922E151585000B757E /* Exceptions for "SmartLibrary" folder in "SmartLibraryTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Tests/BookTrackerTests.swift,
+				Tests/RecipeBookTests.swift,
+			);
+			target = 331107262E15000B000B757E /* SmartLibraryTests */;
+		};
+		331107962E15168A000B757E /* Exceptions for "SmartLibrary" folder in "SmartLibrary" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+				Tests/BookTrackerTests.swift,
+				Tests/RecipeBookTests.swift,
+			);
+			target = 331107142E150009000B757E /* SmartLibrary */;
+		};
+		3311079A2E151ED1000B757E /* Exceptions for "SmartLibraryTests" folder in "SmartLibraryTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				SmartLibraryTests.swift,
+			);
+			target = 331107262E15000B000B757E /* SmartLibraryTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		331107172E150009000B757E /* SmartLibrary */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				331107962E15168A000B757E /* Exceptions for "SmartLibrary" folder in "SmartLibrary" target */,
+				331107922E151585000B757E /* Exceptions for "SmartLibrary" folder in "SmartLibraryTests" target */,
+			);
 			path = SmartLibrary;
 			sourceTree = "<group>";
 		};
 		3311072A2E15000B000B757E /* SmartLibraryTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				3311079A2E151ED1000B757E /* Exceptions for "SmartLibraryTests" folder in "SmartLibraryTests" target */,
+			);
 			path = SmartLibraryTests;
 			sourceTree = "<group>";
 		};
@@ -52,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				337CCD6A2E1BA198002E6E8A /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +151,7 @@
 			);
 			name = SmartLibrary;
 			packageProductDependencies = (
+				337CCD692E1BA198002E6E8A /* SwiftSoup */,
 			);
 			productName = SmartLibrary;
 			productReference = 331107152E150009000B757E /* SmartLibrary.app */;
@@ -195,6 +235,9 @@
 			);
 			mainGroup = 3311070C2E150009000B757E;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				337CCD682E1BA198002E6E8A /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 331107162E150009000B757E /* Products */;
 			projectDirPath = "";
@@ -403,8 +446,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -431,8 +474,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -558,6 +601,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		337CCD682E1BA198002E6E8A /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.8;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		337CCD692E1BA198002E6E8A /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 337CCD682E1BA198002E6E8A /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3311070D2E150009000B757E /* Project object */;
 }

@@ -6,6 +6,7 @@
 //
 
 import Testing
+import XCTest
 
 struct RecipeBookTests {
 

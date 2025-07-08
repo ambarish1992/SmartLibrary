@@ -6,3 +6,14 @@
 //
 
 import Foundation
+
+import Combine
+
+class AppState: ObservableObject {
+    enum ActiveModule {
+        case none, bookTracker, recipeBook
+    }
+    
+    @Published var selectedModule: ActiveModule = .none
+}
+
