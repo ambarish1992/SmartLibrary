@@ -7,18 +7,45 @@
 
 import Foundation
 
-struct Recipe: Identifiable, Codable, Equatable {
-    let id: UUID
-    var title: String
-    var ingredients: String
-    var instructions: String
-    var imageData: Data?
+struct YouTubeVideoResponse: Codable {
+    let items: [YouTubeVideoItem]
+}
+
+struct YouTubeVideoItem: Codable, Identifiable {
+    var id: String { snippet.resourceId?.videoId ?? videoId ?? UUID().uuidString }
     
-    init(id: UUID = UUID(), title: String, ingredients: String, instructions: String, imageData: Data? = nil) {
-        self.id = id
-        self.title = title
-        self.ingredients = ingredients
-        self.instructions = instructions
-        self.imageData = imageData
+    let snippet: Snippet
+    let videoId: String?
+    
+    struct Snippet: Codable {
+        let title: String
+        let description: String
+        let channelTitle: String
+        let thumbnails: Thumbnails
+        let resourceId: ResourceId?
+        
+        struct Thumbnails: Codable {
+            let medium: Thumbnail
+            
+            struct Thumbnail: Codable {
+                let url: String
+            }
+        }
+        
+        struct ResourceId: Codable {
+            let videoId: String
+        }
+    }
+    
+    var videoURL: URL? {
+        if let id = snippet.resourceId?.videoId ?? videoId {
+            return URL(string: "https://www.youtube.com/embed/\(id)")
+        }
+        return nil
+    }
+    
+    var thumbnailURL: URL? {
+        URL(string: snippet.thumbnails.medium.url)
     }
 }
+
