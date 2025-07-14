@@ -4,56 +4,65 @@
 //
 //  Created by Ambarish Shivakumar on 02/07/25.
 //
+import Combine
+import SwiftUI
 
-import Foundation
-import SwiftSoup
-
-class TamilBooksViewModel: ObservableObject {
+final class BookTrackerViewModel: ObservableObject {
+   
     @Published var books: [Book] = []
+    @Published var error: APIError?
+    @Published var isLoading = false
     
-    func fetchBooks() {
-        guard let url = URL(string: "https://www.projectmadurai.org/pmworks.html") else { return }
-        
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            if let data = data, let html = String(data: data, encoding: .utf8) {
-                self.parseHTML(html)
-            } else {
-                print("❌ Error fetching or decoding")
-            }
-        }.resume()
+    private var cancellables = Set<AnyCancellable>()
+    private let apiService: APIServiceProtocol
+    
+    // Image cache
+    private var imageCache: [URL: UIImage] = [:]
+    
+    init(apiService: APIServiceProtocol = APIService()) {
+        self.apiService = apiService
     }
     
-    private func parseHTML(_ html: String) {
-        do {
-            let doc = try SwiftSoup.parse(html)
-            let table = try doc.select("table").first()
-            let rows = try table?.select("tr")
-            
-            var tempBooks: [Book] = []
-            
-            try rows?.dropFirst().forEach { row in
-                let cols = try row.select("td")
-                guard cols.count >= 3 else { return }
-                
-                let title = try cols[1].text()
-                let author = try cols[2].text()
-                let linkTag = try cols[1].select("a").first()
-                let linkHref = try linkTag?.attr("href") ?? ""
-                let fullPDFLink = URL(string: "https://www.projectmadurai.org/" + linkHref)
-                
-                if let link = fullPDFLink {
-                    let book = Book(title: title, author: author, pdfLink: link)
-                    tempBooks.append(book)
+    func fetchBooks() {
+        isLoading = true
+        
+        apiService.fetch(endpoint: .books)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { [weak self] completion in
+                guard let self = self else { return }
+                self.isLoading = false
+                if case let .failure(err) = completion {
+                    self.error = err
                 }
+            }, receiveValue: { [weak self] (response: BookResponse) in
+                guard let self = self else { return }
+                self.books = response.results
+            })
+            .store(in: &cancellables)
+    }
+    
+    func cachedImage(for url: URL) -> UIImage? {
+        return imageCache[url]
+    }
+    
+    func loadImage(for url: URL, completion: @escaping (UIImage?) -> Void) {
+        if let cached = imageCache[url] {
+            completion(cached)
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { [weak self] data, _, _ in
+            guard let data = data, let image = UIImage(data: data) else {
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+                return
             }
             
             DispatchQueue.main.async {
-                self.books = tempBooks
+                self?.imageCache[url] = image
+                completion(image)
             }
-            
-        } catch {
-            print("❌ HTML parsing error: \(error)")
-        }
+        }.resume()
     }
 }
-

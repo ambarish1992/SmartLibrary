@@ -7,26 +7,36 @@
 import SwiftUI
 
 struct BookSettingsView: View {
-    @EnvironmentObject var appState: AppState
+    @StateObject private var viewModel = SettingsViewModel()
     
     var body: some View {
-        NavigationStack {
-            Form {
-                Section(header: Text("Preferences")) {
-                    // Add your custom settings here
-                    Toggle("Notifications", isOn: .constant(true))
-                }
+        Form {
+            Section(header: Text("Appearance")) {
+                Toggle("Dark Mode", isOn: $viewModel.isDarkMode)
                 
-                Section {
-                    Button(role: .destructive) {
-                        appState.selectedModule = .none
-                    } label: {
-                        Label("Switch to Home", systemImage: "arrow.uturn.backward")
-                    }
+                VStack(alignment: .leading) {
+                    Text("Font Size: \(Int(viewModel.fontSize))")
+                    Slider(value: $viewModel.fontSize, in: 12...24, step: 1)
                 }
             }
-            .navigationTitle("Settings")
+            
+            Section(header: Text("Storage")) {
+                Button("Clear Cached PDFs") {
+                    viewModel.clearPDFCache()
+                }
+                .foregroundColor(.red)
+            }
+            
+            Section {
+                HStack {
+                    Text("App Version")
+                    Spacer()
+                    Text(viewModel.appVersion)
+                        .foregroundColor(.secondary)
+                }
+            }
         }
+        .navigationTitle("Settings")
     }
 }
 

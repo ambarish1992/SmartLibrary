@@ -16,7 +16,7 @@ struct BookTrackerCoordinator: View {
             MyReadsView()
                 .tabItem { Label("My Reads", systemImage: "book.fill") }
             
-            TamilLibraryView()
+            BookLibraryView()
                 .tabItem { Label("Tamil Books", systemImage: "text.book.closed") }
             
             StatsView()
